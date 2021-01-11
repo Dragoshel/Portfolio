@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using Microsoft.EntityFrameworkCore;
+using Data;
+
 namespace Portfolio
 {
     public class Startup
@@ -23,7 +26,14 @@ namespace Portfolio
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AddPageRoute("/Articles/GenericArticle", "Articles/{title?}");
+            });
+
+            services.AddDbContext<PortfolioContext>(
+                options => options.UseSqlite(Configuration.GetConnectionString("LocalDb"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
