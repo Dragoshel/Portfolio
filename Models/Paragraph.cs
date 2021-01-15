@@ -1,4 +1,4 @@
-namespace Models
+namespace Portfolio.Models
 {
     public class Paragraph
     {

@@ -1,0 +1,12 @@
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.card:active {
+    transform: scale(1.03);
+}

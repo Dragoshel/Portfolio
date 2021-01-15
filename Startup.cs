@@ -10,7 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Microsoft.EntityFrameworkCore;
-using Data;
+using Portfolio.Data;
+using Portfolio.Services;
+using Portfolio.IServices;
 
 namespace Portfolio
 {
@@ -28,12 +30,14 @@ namespace Portfolio
         {
             services.AddRazorPages(options =>
             {
-                options.Conventions.AddPageRoute("/Articles/GenericArticle", "Articles/{title?}");
+                options.Conventions.AddPageRoute("/Article", "Articles/{title?}");
             });
 
             services.AddDbContext<PortfolioContext>(
                 options => options.UseSqlite(Configuration.GetConnectionString("LocalDb"))
             );
+
+            services.AddScoped<IUrlTransformerService, UrlTransformerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +45,7 @@ namespace Portfolio
         {
             if (env.IsDevelopment())
             {
+                app.UseTitleRouteHandler();
                 app.UseDeveloperExceptionPage();
             }
             else

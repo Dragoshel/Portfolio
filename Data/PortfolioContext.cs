@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
-using Models;
+using Portfolio.Models;
 
-namespace Data
+namespace Portfolio.Data
 {
     public class PortfolioContext : DbContext
     {

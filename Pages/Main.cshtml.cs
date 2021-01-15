@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 using Microsoft.EntityFrameworkCore;
-using Models;
-using Data;
+using Portfolio.Models;
+using Portfolio.Data;
 
 namespace Portfolio.Pages
 {

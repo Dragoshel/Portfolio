@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Models
+namespace Portfolio.Models
 {
     public class Article
     {

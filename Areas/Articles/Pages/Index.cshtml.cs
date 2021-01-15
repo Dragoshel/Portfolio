@@ -8,29 +8,28 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 using Microsoft.EntityFrameworkCore;
-using Models;
-using Data;
+using Portfolio.Models;
+using Portfolio.Data;
 
-namespace Portfolio.Pages
+namespace Portfolio.Areas.Articles.Pages
 {
-    public class GenericArticleModel : PageModel
+    public class IndexModel : PageModel
     {
         public Article Article { get; private set; }
         public string RouteDataTitleValue { get; private set; }
-        public GenericArticleModel()
+        private readonly PortfolioContext _context;
+        public IndexModel(PortfolioContext context)
         {
-
+            _context = context;
         }
         public void OnGet()
         {
-            var titleValue = RouteData.Values["title"];
-
+            var titleValue = (string)RouteData.Values["title"];
+            
             if (titleValue != null)
             {
-                RouteDataTitleValue = (string)titleValue;
+                RouteDataTitleValue = titleValue;
             }
-
-            
         }
     }
 }
