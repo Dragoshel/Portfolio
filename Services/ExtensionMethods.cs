@@ -13,18 +13,21 @@ namespace Portfolio.Services
     public class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
-        // private readonly IUrlTransformerService _service;
         public ExceptionHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
         }
         public async Task InvokeAsync(HttpContext httpContext, IUrlTransformerService service)
         {
-            if (service.IsValidArticlePath(httpContext.Request.Path))
-            {
-                var transformedUrl = await service.TransformUrl(httpContext);
+            var pathToCheck = "Articles";
 
-                httpContext.Request.Path = transformedUrl;
+            var actualPath = httpContext.Request.Path;
+
+            if (service.IsValidPath(actualPath, pathToCheck))
+            {
+                var transformedUrl = await service.TransformUrl(actualPath);
+
+                httpContext.Request.Path = "/" + pathToCheck + "/" + transformedUrl;
             }
 
             await _next(httpContext);

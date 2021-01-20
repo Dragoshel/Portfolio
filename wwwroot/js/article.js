@@ -1,5 +1,5 @@
 function changeRoute(route) {
-    window.history.pushState("", "", route)
+    window.history.replaceState(null, "", route)
 }
 
-changeRoute(document.getElementById("title").innerHTML)
+changeRoute(document.getElementById("title").value)

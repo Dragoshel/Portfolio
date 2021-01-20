@@ -1,0 +1,10 @@
+.article {
+    font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-size: 1.6rem;
+    padding: 6rem;
+    color: rgb(41, 41, 41);
+}
+
+h1 {
+    padding-bottom: 8rem;
+}

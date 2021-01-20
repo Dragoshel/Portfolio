@@ -1,9 +1,21 @@
 @page "{title?}"
 @model IndexModel
 
-<h1 id="title">
-    @Model.RouteDataTitleValue
-</h1>
+@section Styles {
+    <link rel="stylesheet" href="~/css/article.css"/>
+}
+
+<input type="hidden" id="title" value=@Model.RouteDataTitleValue>
+
+<div class="container article">
+    <h1>@Model.Article.Title</h1>
+        @foreach(var paragraph in Model.Article.Paragraphs)
+        {
+            <p>
+                @paragraph.Text
+            </p>
+        }
+</div>
 
 @section Scripts {
     <script src = "~/js/article.js"></script>

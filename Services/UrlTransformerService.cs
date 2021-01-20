@@ -18,33 +18,38 @@ namespace Portfolio.Services
             _context = context;
         }
 
-        public bool IsValidArticlePath(PathString path)
+        public bool IsValidPath(PathString path, string valueToCheck)
         {
-            var articlePath = new PathString("/Articles");
+            var pathToCheck = new PathString("/" + valueToCheck);
 
-            return (path.StartsWithSegments(articlePath));
+            return path.StartsWithSegments(pathToCheck);
         }
 
-        private async Task<Article> GetArticleFromPathId(PathString path)
+        public async Task<Article> GetArticleFromPathId(PathString path)
         {
             string[] segments = path.Value.Split("/");
             string title = segments[2];
 
+            return (await GetArticleFromTitleId(title));
+        }
+
+        public async Task<Article> GetArticleFromTitleId(string title)
+        {
             string[] words = title.Split("-");
             int Id = int.Parse(words[words.Length - 1]);
 
             var article = await _context.Articles
+                                        .Include(p => p.Paragraphs)
                                         .FirstOrDefaultAsync(a => a.Id == Id);
 
             return article;
         }
 
-        public async Task<string> TransformUrl(HttpContext httpContext)
+        public async Task<string> TransformUrl(PathString path)
         {
-            var path = httpContext.Request.Path;
             var article = await GetArticleFromPathId(path);
 
-            string formattedTitle = "/Articles/" + article.Title.Replace(' ', '-');
+            string formattedTitle = article.Title.Replace(' ', '-');
 
             formattedTitle += ("-" + article.Id);
 
